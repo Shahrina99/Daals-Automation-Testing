@@ -170,4 +170,6 @@ test('Test Daals', async ({ page }) => {
     await page.waitForTimeout(4000);
     console.log ("The shop by category is visible");// Return to the homepage 
 
+    //await page.locator("")
+
 });  
