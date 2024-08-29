@@ -4,6 +4,7 @@ const { Console } = require('console');
 async function closeModalIfExists(page, selector) {
   const closeButton = page.locator(selector);
   const count = await closeButton.count();
+  console.log(count)
   if (count > 0) {
     console.log(`Closing modal with selector: ${selector}`);
     await closeButton.click();
@@ -73,7 +74,17 @@ test('Home Page', async ({ page }) => {
   // await page.getByRole('heading', { name: 'Shop by category' }).isVisible();
   // await page.waitForTimeout(4000);
   // console.log ("The shop by category is visible");
+  
   // await page.locator('#inner-custom').nth(1).click();
+  // await page.waitForTimeout(3000);
+  // await page.goto('https://www.daals.co.uk/'); 
+  
+  // await page.locator('#inner-custom').nth(2).click();
+  // await page.waitForTimeout(2000);
+
+  
+    
+
   // await page.locator('#inner-custom').nth(1).click();
 
   // //Search
@@ -81,26 +92,93 @@ test('Home Page', async ({ page }) => {
   //   await page.goto('https://www.daals.co.uk/');
   //   await page.getByLabel('Close dialog').click();
   //   await page.getByRole('button', { name: 'X' }).click();
-  //   await page.getByRole('combobox', { name: 'When autocomplete results are' }).fill('Bed');
-  //   await page.goto('https://www.daals.co.uk/search?q=Bed&type=product');
-    await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
-    await page.waitForTimeout(2000);
-    await page.getByRole('combobox', { name: 'When autocomplete results are' }).fill('Bed');
-    await page.waitForTimeout(2000);
-    await page.getByRole('combobox', { name: 'When autocomplete results are' }).focus();
-    await page.waitForTimeout(2000);
-    await page.getByRole('combobox', { name: 'When autocomplete results are' }).press('Enter');
-    await page.waitForTimeout(2000);
-    await page.getByRole('combobox', { name: 'When autocomplete results are' }).press('Enter');
-    await page.waitForTimeout(4000);
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).fill('Bed');
+    // await page.goto('https://www.daals.co.uk/search?q=Bed&type=product');
+
+    /*Search product and Add to cart*/
+
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).fill('Bed');
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).focus();
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).press('Enter');
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('combobox', { name: 'When autocomplete results are' }).press('Enter');
+    // await page.waitForTimeout(4000);
     // await page.evaluate(() => {
     //   window.scrollTo(0, 200); // Scrolls to 500 pixels down from the top
     //   });
-    
-    await page.locator("#shopify-section-template--15432966963251__searchtemplate > div.boost-pfs-filter-wrapper.boost-pfs-search-panel-product-show > div > div.boost-pfs-filter-right-col > div.boost-pfs-filter-products.boost-pfs-filter-product-item-equal-height-auto.boost-pfs-filter-product-item-label-type-rectangle.boost-pfs-filter-product-item-show-details-false.boost-pfs-filter-product-item-layout-no-border.boost-pfs-filter-product-item-label-top_left.boost-pfs-filter-product-item-text-alignment-left.bc-al-style4 > div:nth-child(1)").hover();  // Hover over the element
+
+
+    // await page.goto('https://www.daals.co.uk/search?q=Bed&type=product');
+    // await page.locator(".boost-pfs-filter-product-item-text-alignment-left.bc-al-style4 > div:nth-child(1)").hover();  // Hover over the element
+    // await page.waitForTimeout(2000);
+    // await page.locator("#boost-pfs-addtocart-product-form-6981291442227 > div > button").click();  // Then click on the element
+    // await page.waitForTimeout(2000);
+    // await page.locator("label[for='swatch-0-super-king']").click();
+    // await page.locator("#AddToCart-product-quickview-template").click();
+    // await page.waitForTimeout(2000);
+    // await closeModalIfExists(page, 'a.close-cart');
+    // await page.waitForTimeout(2000);
+
+    // // Container of #USPs befor New arrivals
+    //await page.goto('https://www.daals.co.uk/'); 
+    // await page.locator("a.b-1").click();
+    // await page.goBack();
+    // await page.locator("a.b-2").click();
+    // await page.goBack();
+    // await page.locator("a.b-3").click();
+    // await page.goBack();
+
+    await page.locator('.item1 a[href="/collections/dining-tables"]').click();
     await page.waitForTimeout(2000);
-    await page.locator("#boost-pfs-addtocart-product-form-6981291442227 > div > button").click();  // Then click on the element
+    await page.locator('li:nth-child(3) > .variant_img').first().click();
     await page.waitForTimeout(2000);
+    await page.locator('div:nth-child(4) > center > a').first().click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('link', { name: '-8 Seater Extending Table' }).click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('link', { name: '' }).click();
+    await page.locator('a.q_up').click();
+    await page.evaluate(() => {
+      window.scrollTo(0, 500); // Scrolls to 500 pixels down from the top
+    });
+    await page.locator('#sticky-info-template--15432921153587__main').getByRole('button', { name: 'Add to cart'}).click();
+    await page.waitForTimeout(2000);
+    await page.locator("#cart-sidebar > div.cart-window-header > a").click();
+    await page.waitForTimeout(2000);
+
+
+
+
+  
+
+
+
+    // test('test', async ({ page }) => {
+    //   await page.goto('https://www.daals.co.uk/collections/dining-tables');
+    //   await page.getByLabel('Close dialog').click();
+    //   await page.getByRole('button', { name: 'X' }).click();
+    //   await page.getByRole('button', { name: 'Later' }).click();
+    //   await page.locator('li:nth-child(3) > .variant_img').first().click();
+    //   await page.locator('div:nth-child(4) > center > a').first().click();
+    //   await page.getByRole('link', { name: '-8 Seater Extending Table' }).click();
+    //   await page.locator('html').click();
+    //   await page.getByRole('link', { name: '' }).click();
+    //   await page.getByRole('link', { name: '' }).click();
+    //   await page.getByRole('link', { name: '' }).click();
+    // });
+
+
+
+
+
+
+
+
+
 
     //await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
     //await page.waitForTimeout(2000);
