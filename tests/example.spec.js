@@ -1,89 +1,126 @@
-const { test, expect, defineConfig } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
+let page;
 
-export default defineConfig({
-  timeout: 60 * 60 * 1000 // 1 hour
+test.beforeAll(async ({browser})=>{
+  page = await browser.newPage();
+
+  
+await page.goto('https://www.hookandloop.com/', { waitUntil: 'load' });
+console.log('Page loaded completely.');
+
+// await page.getByRole('menuitem', { name: ' DuraGrip® Brand' }).click();
+// await page.getByRole('menuitem', { name: ' VELCRO® Brand' }).click();
+// await page.getByRole('menuitem', { name: '3M™ Brand' }).click();
+
+
+
 });
 
-async function closeModalIfExists(page, selector) {
-  const closeButton = page.locator(selector);
-  const count = await closeButton.count();
-  if (count > 0) {
-    console.log(`Closing modal with selector: ${selector}`);
-    await closeButton.click();
-    console.log(`Closed modal using selector: ${selector}`);
-  } else {
-    console.log(`Modal close button not found for selector: ${selector}`);
-  }
-}
+test('DuraGrip', async () => {
+  
+  // Navigate to the collection page
+  await page.locator("#ui-id-3").hover();
+  
+  await page.getByRole('menuitem', { name: ' DuraGrip® Brand' }).click();
+  await page.waitForTimeout(2000);
+  //await page.goto('https://www.hookandloop.com/brands/duragrip'); // Replace with your collection page URL
 
-test('Test Daals', async ({ page }) => {
-  try {
-    console.log('Navigating to page...');
-    await page.goto('https://www.daals.co.uk/', { timeout: 100000000 });
+  // Locate the <ol> element with class 'products list items product-items'
+  const container = page.locator('ol.products.list.items.product-items');
+  
+  // Find all the product items inside the <ol> container
+  const products = container.locator('.product-item');
 
-    console.log('Closing modals if they exist...');
-    await closeModalIfExists(page, 'button.needsclick.klaviyo-close-form.kl-private-reset-css-Xuajs1');
-    await closeModalIfExists(page, 'button.region-selector_close');
-    await closeModalIfExists(page, 'button.js-pushowl-no-button pushowl-optin__button pushowl-optin__no-button');
+  // Get the count of all products inside the <ol> container
+  const productCount = await products.count();
+  console.log(`Total number of products: ${productCount}`);
 
-   
+  let visibleProductCount = 0;
+
+  for (let i = 0; i < productCount; i++) {
+    const productVisible = await products.nth(i).isVisible();
     
-
-    console.log('Ensuring "New Arrivals" link is visible...');
-    const element = page.locator('a.a1[href="/collections/new-arrivals"]');
-    await expect(element).toBeVisible({ timeout: 60000 });
-    await expect(element).toHaveText('SHOP NOW');
-
-    console.log('Clicking on "SHOP NOW" link...');
-    await element.click();
-
-    console.log('Waiting for navigation to complete...');
-    await page.waitForURL('https://www.daals.co.uk/collections/new-arrivals', { timeout: 10000000000 });
-    expect(page.url()).toBe('https://www.daals.co.uk/collections/new-arrivals');
-
-    console.log('Clicking on Wishlist...');
-    const wishlist = page.locator('.my-wishlist');
-    await wishlist.click();
-
-    console.log('Checking Wishlist URL...');
-    const wishlistUrl = page.url();
-    expect(page.url()).toBe(wishlistUrl);
-
-    console.log('Clicking on My Account...');
-    const MyAccount = page.locator('.my-account');
-    await expect(MyAccount).toBeVisible({ timeout: 60000 });
-    await MyAccount.click();
-
-    console.log('Clicking on Cart Drawer...');
-    const cartDrawer = page.locator('#cart_block');
-    await expect(cartDrawer).toBeVisible({ timeout: 60000 });
-    await cartDrawer.click();
-
-    console.log('Closing Cart Drawer...');
-    await closeModalIfExists(page, 'a.close-cart');
-
-    console.log('Clicking on Logo...');
-    const logo = page.locator('.logo').first();
-    await logo.click();
-
-    console.log('Getting current URL...');
-    const logoUrl = page.url();
-    console.log('The URL of the page after clicking the logo:', logoUrl);
-    expect(page.url()).toBe(logoUrl);
-
-    console.log('Hovering over Garden...');
-    await page.locator('li.with-sub-menu.hover.mobile-disabled.m_menu-item').nth(1).hover();
-
-    const endTime = Date.now();
-    const executionTime = (endTime - startTime) / 1000;
-    console.log(`Test execution time: ${executionTime.toFixed(2)} seconds`);
-  } catch (error) {
-    console.error('Test failed:', error);
-    throw error;
+    // Check if the product is visible
+    if (productVisible) {
+      console.log(`Product ${i + 1} is visible.`);
+      visibleProductCount++;
+    } else {
+      console.log(`Product ${i + 1} is NOT visible.`);
+    }
   }
-}, { headless: false });
 
-await page.getByLabel('Close dialog').click();
-await page.getByRole('button', { name: 'X' }).click();
-await page.getByRole('button', { name: 'Later' }).click();
+  console.log(`Total number of visible products: ${visibleProductCount}`);
+});
 
+
+test('Velcro', async () => {
+  
+  // Navigate to the collection page
+  await page.locator("#ui-id-3").hover();
+  
+  await page.getByRole('menuitem', { name: ' VELCRO® Brand' }).click();
+  await page.waitForTimeout(2000);
+  //await page.goto('https://www.hookandloop.com/brands/duragrip'); // Replace with your collection page URL
+
+  // Locate the <ol> element with class 'products list items product-items'
+  const container = page.locator('ol.products.list.items.product-items');
+  
+  // Find all the product items inside the <ol> container
+  const products = container.locator('.product-item');
+
+  // Get the count of all products inside the <ol> container
+  const productCount = await products.count();
+  console.log(`Total number of products: ${productCount}`);
+
+  let visibleProductCount = 0;
+
+  for (let i = 0; i < productCount; i++) {
+    const productVisible = await products.nth(i).isVisible();
+    
+    // Check if the product is visible
+    if (productVisible) {
+      console.log(`Product ${i + 1} is visible.`);
+      visibleProductCount++;
+    } else {
+      console.log(`Product ${i + 1} is NOT visible.`);
+    }
+  }
+
+  console.log(`Total number of visible products: ${visibleProductCount}`);
+});
+
+test('3M', async () => {
+  
+  // Navigate to the collection page
+  await page.locator("#ui-id-3").hover();
+  
+  await page.getByRole('menuitem', { name: ' DuraGrip® Brand' }).click();
+  await page.waitForTimeout(2000);
+  //await page.goto('https://www.hookandloop.com/brands/duragrip'); // Replace with your collection page URL
+
+  // Locate the <ol> element with class 'products list items product-items'
+  const container = page.locator('ol.products.list.items.product-items');
+  
+  // Find all the product items inside the <ol> container
+  const products = container.locator('.product-item');
+
+  // Get the count of all products inside the <ol> container
+  const productCount = await products.count();
+  console.log(`Total number of products: ${productCount}`);
+
+  let visibleProductCount = 0;
+
+  for (let i = 0; i < productCount; i++) {
+    const productVisible = await products.nth(i).isVisible();
+    
+    // Check if the product is visible
+    if (productVisible) {
+      console.log(`Product ${i + 1} is visible.`);
+      visibleProductCount++;
+    } else {
+      console.log(`Product ${i + 1} is NOT visible.`);
+    }
+  }
+
+  console.log(`Total number of visible products: ${visibleProductCount}`);
+});

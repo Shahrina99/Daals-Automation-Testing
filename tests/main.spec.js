@@ -14,7 +14,9 @@ async function closeModalIfExists(page, selector) {
 }
 
 test('Test Daals', async ({ page }) => {
-  
+
+
+    await page.setViewportSize({width:1440, height:953});
     console.log('Navigating to page...');
     await page.goto('https://www.daals.co.uk/', { waitUntil: 'load' });
     console.log('Page loaded completely.');
@@ -125,7 +127,9 @@ test('Test Daals', async ({ page }) => {
     console.log('Hovering over Garden...');
     await page.locator('li.with-sub-menu.hover.mobile-disabled.m_menu-item').nth(1).hover();
 
-    await page.getByRole('link', { name: 'Garden   ' }).click();
+    await page.getByRole('link', { name: 'Garden   '}).first().click();
+    //await page.locator('a[href="/collections/garden-furniture"]').click();
+    // await page.getByRole('link', { name: 'Garden' }).nth(1).click();
     
     // Click to the PDP
     await page.getByRole('link', { name: 'Jardin Aluminium Large Corner Casual Dining Set with Rising Table, Granite Jardin Aluminium Large Corner Casual Dining Set with Rising Table, Granite', exact: true }).click();
@@ -181,7 +185,7 @@ test('Test Daals', async ({ page }) => {
     await page.getByRole('heading', { name: 'Shop by category' }).isVisible();
     await page.waitForTimeout(4000);
     console.log ("The shop by category is visible");// Return to the homepage 
-    
+
     //Add product through Shop By Category
     await page.locator('.item1 a[href="/collections/dining-tables"]').click();
     await page.waitForTimeout(2000);
@@ -201,11 +205,42 @@ test('Test Daals', async ({ page }) => {
     await page.waitForTimeout(2000);
     
 
-    await page.goto('https://www.daals.co.uk/');  
+    await page.goto('https://www.daals.co.uk/'); 
+    
+    await page.locator('a.btn1').click(); // Click on Explore button
+    await page.waitForTimeout(2000);
+    await page.locator('.checkbox-custom').first().click(); // 
+    await page.waitForTimeout(2000);
+    await page.getByText('Aluminium', { exact: true }).nth(3).click();
+    await page.waitForTimeout(2000);
+    await page.locator('#sandbox i').first().click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('button', { name: 'Add to cart', exact: true }).click();
+    await page.waitForTimeout(2000);
+    await page.locator('#cart-sidebar div').filter({ hasText: 'Your Basket' }).getByRole('link').click();
+    await page.waitForTimeout(2000);
+    await page.getByText('Sale', { exact: true }).click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('link', { name: 'Clear all' }).click();
+    await page.waitForTimeout(2000);
+    await page.locator('details:nth-child(4) > .filter-group-display > .filter-group-display__list > li:nth-child(4) > .flex > .checkbox-custom').first().click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('textbox', { name: '2600' }).click();
+    await page.waitForTimeout(2000);
+    await page.locator('#toSlider').first().fill('445');
+    await page.waitForTimeout(2000);
+    await page.getByRole('button', { name: 'Add to Wishlist' }).first().click();
+    await page.waitForTimeout(2000);
+    await page.getByRole('link', { name: 'Champneys 4-Seater Steel and Fabric Outdoor Patio Dining Set with Parasol, Navy Blue', exact: true }).click();
+    await page.waitForTimeout(2000);
+    await page.locator('div:nth-child(3) > #color1 > a').click();
+    await page.waitForTimeout(2000);
+    await page.locator('#nosto-bundle-first-newtheme').getByText('Next', { exact: true }).click();
+    await page.waitForTimeout(2000);
     
 
 
 
-    //await page.locator("")
+    
 
 });  

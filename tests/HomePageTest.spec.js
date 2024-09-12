@@ -14,8 +14,9 @@ async function closeModalIfExists(page, selector) {
   }
 }
 
-test('Home Page', async ({ page }) => {
+test.skip('Home Page', async ({ page }) => {
 
+  await page.setViewportSize({width:1440, height:953}); 
   console.log('Navigating to page...');
   await page.goto('https://www.daals.co.uk/', { waitUntil: 'load' });
   console.log('Page loaded completely.');
@@ -29,6 +30,7 @@ test('Home Page', async ({ page }) => {
   await closeModalIfExists(page, 'button.js-pushowl-no-button pushowl-optin__button pushowl-optin__no-button');
   await page.getByRole('button', { name: 'Later' }).click();
 
+  
 
   
 
@@ -132,68 +134,89 @@ test('Home Page', async ({ page }) => {
     // await page.locator("a.b-3").click();
     // await page.goBack();
 
-    await page.locator('.item1 a[href="/collections/dining-tables"]').click();
-    await page.waitForTimeout(2000);
-    await page.locator('li:nth-child(3) > .variant_img').first().click();
-    await page.waitForTimeout(2000);
-    await page.locator('div:nth-child(4) > center > a').first().click();
-    await page.waitForTimeout(2000);
-    await page.getByRole('link', { name: '-8 Seater Extending Table' }).click();
-    await page.waitForTimeout(2000);
-    await page.getByRole('link', { name: '' }).click();
-    await page.locator('a.q_up').click();
-    await page.evaluate(() => {
-      window.scrollTo(0, 500); // Scrolls to 500 pixels down from the top
-    });
-    await page.locator('#sticky-info-template--15432921153587__main').getByRole('button', { name: 'Add to cart'}).click();
-    await page.waitForTimeout(2000);
-    await page.locator("#cart-sidebar > div.cart-window-header > a").click();
-    await page.waitForTimeout(2000);
-
-
-
-
-  
-
-
-
-    // test('test', async ({ page }) => {
-    //   await page.goto('https://www.daals.co.uk/collections/dining-tables');
-    //   await page.getByLabel('Close dialog').click();
-    //   await page.getByRole('button', { name: 'X' }).click();
-    //   await page.getByRole('button', { name: 'Later' }).click();
-    //   await page.locator('li:nth-child(3) > .variant_img').first().click();
-    //   await page.locator('div:nth-child(4) > center > a').first().click();
-    //   await page.getByRole('link', { name: '-8 Seater Extending Table' }).click();
-    //   await page.locator('html').click();
-    //   await page.getByRole('link', { name: '' }).click();
-    //   await page.getByRole('link', { name: '' }).click();
-    //   await page.getByRole('link', { name: '' }).click();
-    // });
-
-
-
-
-
-
-
-
-
-
-    //await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
-    //await page.waitForTimeout(2000);
-    // await page.getByRole('link', { name: 'Ophelia Ecru Boucle Dining' }).click();
+    // await page.locator('.item1 a[href="/collections/dining-tables"]').click();
     // await page.waitForTimeout(2000);
+    // await page.locator('li:nth-child(3) > .variant_img').first().click();
+    // await page.waitForTimeout(2000);
+    // await page.locator('div:nth-child(4) > center > a').first().click();
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('link', { name: '-8 Seater Extending Table' }).click();
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('link', { name: '' }).click();
+    // await page.locator('a.q_up').click();
+    // await page.evaluate(() => {
+    //   window.scrollTo(0, 500); // Scrolls to 500 pixels down from the top
+    // });
+    // await page.locator('#sticky-info-template--15432921153587__main').getByRole('button', { name: 'Add to cart'}).click();
+    // await page.waitForTimeout(2000);
+    // await page.locator("#cart-sidebar > div.cart-window-header > a").click();
+    // await page.waitForTimeout(2000);
+
+
+    await page.locator('a.btn1').click();
+    // await page.waitForTimeout(2000);
+    // await page.locator('.checkbox-custom').first().click();
+    // await page.waitForTimeout(2000);
+    // await page.getByText('Aluminium', { exact: true }).nth(3).click(); // Click on Aluminium 
+    // await page.waitForTimeout(4000);
+    // await page.locator('#sandbox i').first().click(); 
+    // await page.waitForTimeout(4000);
+    // await page.getByRole('button', { name: 'Add to cart', exact: true }).click();
+    // await page.waitForTimeout(4000);
+    // await page.locator('#cart-sidebar div').filter({ hasText: 'Your Basket' }).getByRole('link').click();
+    // await page.waitForTimeout(4000);
+    // await page.getByText('Sale', { exact: true }).click();
+    // await page.waitForTimeout(4000);
+    // await page.getByRole('link', { name: 'Clear all' }).click();
+    // await page.waitForTimeout(4000);
+    // await page.locator('details:nth-child(4) > .filter-group-display > .filter-group-display__list > li:nth-child(4) > .flex > .checkbox-custom').first().click();
+    // await page.waitForTimeout(4000);
+    // await page.getByRole('textbox', { name: '2600' }).click();
+    // await page.waitForTimeout(4000);
+    // await page.locator('#toSlider').first().fill('445');
+    // await page.waitForTimeout(4000);
+    // await page.getByRole('button', { name: 'Add to Wishlist' }).first().click();
+    // await page.waitForTimeout(4000);
+
+    // console.log('Clicking on Wishlist...');
+    // page.click('a.my-wishlist');
+
+    // await page.waitForTimeout(4000);
+
+    // console.log('Checking Wishlist URL...');
+    // const wishlistUrl = page.url();
+    // expect(page.url()).toBe(wishlistUrl);                                       // Confirm the URL matches the Wishlist page
+
+    // await page.waitForTimeout(3000);
+    // await page.goBack();
+
+    await page.getByRole('link', { name: 'Champneys 4-Seater Steel and Fabric Outdoor Patio Dining Set with Parasol, Navy Blue', exact: true }).click();
+    await page.waitForTimeout(4000);
+    await page.locator('div:nth-child(3) > #color1 > a').click();
+    await page.waitForTimeout(4000);
+    await page.locator('#nosto-bundle-first-newtheme').getByText('Next', { exact: true }).click();
+    await page.waitForTimeout(4000);
+    await page.locator('#nosto-bundle-first-newtheme').getByRole('button', { name: 'ADD TO CART' }).click();
+    await page.waitForTimeout(4000);
+    await page.locator('#cart-sidebar div').filter({ hasText: 'Your Basket' }).getByRole('link').click();
+    // await page.waitForTimeout(4000);
+    // await page.locator('#nosto-bundle-second-newtheme').getByText('Next', { exact: true }).click();
+    // await page.waitForTimeout(4000);
+    // await page.locator('#nosto-bundle-second-newtheme').getByText('Next', { exact: true }).click();
+    await page.waitForTimeout(4000);
+    await page.locator('#nosto-bundle-second-newtheme').getByRole('link', { name: 'Quick View' }).click();
+    await page.waitForTimeout(4000);
+    await closeModalIfExists(page, 'button.mfp-close');
+    await page.waitForTimeout(8000);
+
+
+
+    // await page.locator('#nosto-bundle-second-newtheme').getByRole('button', { name: 'ADD TO CART' }).click();
+    // await page.waitForTimeout(4000);
   
-  //   await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
-  //   await page.getByRole('combobox', { name: 'When autocomplete results are' }).fill('');
-  //   await page.getByRole('combobox', { name: 'When autocomplete results are' }).click();
-  //   await page.getByRole('link', { name: 'Ophelia Ecru Boucle Dining' }).click();
-  // });
+    // await page.locator('#cart-sidebar div').filter({ hasText: 'Your Basket' }).getByRole('link').click();
+    // await page.waitForTimeout(2000);    
+    // await page.goto('https://www.daals.co.uk/');
+
   
-
-
-
-
-
  }) 
