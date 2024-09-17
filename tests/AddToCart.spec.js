@@ -3,13 +3,13 @@ import { test, expect } from '@playwright/test';
 test('Test H&L', async ({ page }) => {
   
   // Navigate to the collection page
-  await page.goto('https://www.hookandloop.com/brands/3M'); // Replace with your collection page URL
+  await page.goto('https://www.hookandloop.com/brands/duragrip'); // Replace with your collection page URL
 
   // Locate the <ol> element with class 'products list items product-items'
   const container = page.locator('ol.products.list.items.product-items');
   
   // Find all the product items inside the <ol> container
-  const products = container.locator('.product');
+  const products = container.locator('li.item.product.product-item');
 
   // Get the count of all products inside the <ol> container
   const productCount = await products.count();
